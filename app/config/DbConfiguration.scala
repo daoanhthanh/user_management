@@ -9,5 +9,6 @@ object DbConfiguration {
   val DB_DRIVER: String = "com.mysql.cj.jdbc.Driver"
   val DB_MIN_COLLECTION: Int = 1
   val DB_MAX_COLLECTION: Int = 6
-  val CONNECTION_URL: String = s"jdbc:mysql://$HOST_NAME/$DB_NAME?useSSL=false"
+  val CONNECTION_URL: String =
+    s"jdbc:mysql://$HOST_NAME:$DB_PORT/$DB_NAME?useSSL=false"
 }

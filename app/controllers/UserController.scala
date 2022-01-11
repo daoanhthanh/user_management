@@ -51,4 +51,14 @@ class UserController @Inject()(val controllerComponents: ControllerComponents) e
 
       Ok(Json.toJson(response))
    }
+
+   def getOne(userId:Int): Action[AnyContent] = Action{
+      val response = UserService.getOne(userId)
+      response match {
+         case Some(value) => Ok(Json.toJson(value))
+         case None => NotFound
+      }
+   }
+
+   
 }

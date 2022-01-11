@@ -7,3 +7,8 @@ logs
 /.project
 /.settings
 /RUNNING_PID
+/.vscode
+/.metals
+**/.bloop
+**/metals.sbt
+.scalafmt.conf
