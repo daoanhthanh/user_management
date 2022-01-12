@@ -90,13 +90,15 @@ object UserService {
         while (resultSet.next()) {
           val id = resultSet.getInt(1)
           val name = resultSet.getString(2)
-          val dob = resultSet.getDate(3).toLocalDate()
+          val dob = resultSet.getDate(3).toLocalDate
           user = User(id, name, dob)
         }
         user
 
       }
     }
+
+//    user.getOrElse(None)
 
     user match {
       case Success(_user) => Some(_user)

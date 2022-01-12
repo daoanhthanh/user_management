@@ -5,4 +5,4 @@
 
 GET /users controllers.UserController.getAll
 GET /users/:userId controllers.UserController.getOne(userId:Int)
-POST /users/addOne controllers.UserController.addOne
+POST /users controllers.UserController.addOne

@@ -27,11 +27,6 @@ class UserController @Inject()(val controllerComponents: ControllerComponents) e
    def addOne(): Action[AnyContent] = Action {
       implicit request => {
          val userDTO = request.body.asJson.map(_.as[UserDTO])
-//         val userDTO: Option[UserDTO] =
-//            userDTOJson.flatMap(
-//               Json.fromJson[UserDTO](_).asOpt
-//            )
-
          userDTO match {
             case Some(dto) => {
                val response = UserService.persistOne(dto)
@@ -55,7 +50,10 @@ class UserController @Inject()(val controllerComponents: ControllerComponents) e
    def getOne(userId:Int): Action[AnyContent] = Action{
       val response = UserService.getOne(userId)
       response match {
-         case Some(value) => Ok(Json.toJson(value))
+         case Some(value) => {
+            if(value != null)Ok(Json.toJson(value))
+            else NotFound
+         }
          case None => NotFound
       }
    }
