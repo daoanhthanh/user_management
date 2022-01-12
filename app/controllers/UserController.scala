@@ -1,9 +1,10 @@
 package controllers
 
+import akka.http.scaladsl.model.DateTime
 import models.DTOs.UserDTO
 import models.entities.User
 import models.services.UserService
-import play.api.libs.json.{Format, JsString, JsSuccess, Json, OFormat, OWrites}
+import play.api.libs.json.{Format, JsString, JsSuccess, Json}
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 
 import java.time.LocalDate
@@ -21,7 +22,6 @@ class UserController @Inject()(val controllerComponents: ControllerComponents) e
       },
       date => JsString(date.toString)
    )
-
 
    //CRUD
    def addOne(): Action[AnyContent] = Action {
@@ -56,6 +56,29 @@ class UserController @Inject()(val controllerComponents: ControllerComponents) e
          }
          case None => NotFound
       }
+   }
+
+   //update
+   def updateOne(userId: Int): Action[AnyContent] = Action{
+      implicit request => {
+         val userDTO = request.body.asJson.map(_.as[UserDTO])
+         userDTO match {
+            case Some(dto) => {
+               val response:Boolean = UserService.updateOne(userId, dto)
+               if(response){
+                  Ok("update successfully")
+               }
+               else BadRequest
+            }
+            case _ => BadRequest
+         }
+      }
+   }
+
+   def deleteOne(userId: Int): Action[AnyContent] = Action {
+      val result:Boolean = UserService.deleteOne(userId)
+      if (result) Ok
+      else NotFound
    }
 
    

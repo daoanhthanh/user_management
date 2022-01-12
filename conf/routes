@@ -6,3 +6,5 @@
 GET /users controllers.UserController.getAll
 GET /users/:userId controllers.UserController.getOne(userId:Int)
 POST /users controllers.UserController.addOne
+PUT /users/:id controllers.UserController.updateOne(id:Int)
+DELETE /users/:id controllers.UserController.deleteOne(id:Int)
